@@ -1,0 +1,20 @@
+class Result {
+    public static int findSmallestMissingPositive(List<Integer> orderNumbers) {
+     int num=0;
+for( int i=0;i<orderNumbers.size();i++){
+     for(int j=0;orderNumbers.get(i)>0;j++){
+        int temp=orderNumbers.get(j);
+        orderNumbers.set(orderNumbers.get(j)-1,i);
+        orderNumbers.set(temp,orderNumbers.get(j)-1);
+     }
+    
+    if(orderNumbers.get(i)!=i+1){
+        continue;
+     }
+     else{
+         num= i-1;
+     } 
+}
+return num ;
+    }
+    }
