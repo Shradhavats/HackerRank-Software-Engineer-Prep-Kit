@@ -1,0 +1,16 @@
+class Result {
+
+    public static boolean isAlphabeticPalindrome(String code) {
+
+StringBuilder s = new StringBuilder();
+    
+    for (int i = 0; i < code.length(); i++) {
+        char c = code.charAt(i);
+        if (Character.isLetter(c)) {
+            s.append(Character.toLowerCase(c));
+        }
+    }
+    
+    return s.toString().equals(s.reverse().toString());
+}
+}
