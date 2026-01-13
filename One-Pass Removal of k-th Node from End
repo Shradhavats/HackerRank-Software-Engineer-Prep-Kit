@@ -1,0 +1,126 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+class SinglyLinkedListNode {
+    public int data;
+    public SinglyLinkedListNode next;
+
+    public SinglyLinkedListNode(int nodeData) {
+        this.data = nodeData;
+        this.next = null;
+    }
+}
+
+class SinglyLinkedList {
+    public SinglyLinkedListNode head;
+    public SinglyLinkedListNode tail;
+
+    public SinglyLinkedList() {
+        this.head = null;
+        this.tail = null;
+    }
+
+    public void insertNode(int nodeData) {
+        SinglyLinkedListNode node = new SinglyLinkedListNode(nodeData);
+
+        if (this.head == null) {
+            this.head = node;
+        } else {
+            this.tail.next = node;
+        }
+
+        this.tail = node;
+    }
+}
+
+class SinglyLinkedListPrintHelper {
+    public static void printList(SinglyLinkedListNode node, String sep) {
+        while (node != null) {
+            System.out.print(node.data);
+
+            node = node.next;
+
+            if (node != null) {
+                System.out.print(sep);
+            }
+        }
+    }
+}
+
+
+
+class Result {
+
+
+    public static SinglyLinkedListNode removeKthNodeFromEnd(SinglyLinkedListNode head, int k) {
+        if( head== null){
+            return head;
+        }
+        SinglyLinkedListNode pointer = head;
+        int c= 0;
+        while(pointer!=null){
+            c++;
+            pointer=pointer.next; 
+            
+        }
+        pointer= head;
+        SinglyLinkedListNode n= head;
+        head = head.next;
+        int i=0;
+        if((c-i-1)==k){
+            pointer=head;
+            return pointer;
+        }
+        while( head!= null){
+            i++;
+            if((c-i-1)==k){
+                n.next= head.next; 
+                return pointer;
+            }
+            else {
+                n= n.next;
+                head= head.next;
+            }
+        }
+        return pointer;
+    }
+  
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+        SinglyLinkedList head = new SinglyLinkedList();
+
+        int headCount = Integer.parseInt(bufferedReader.readLine().trim());
+
+        IntStream.range(0, headCount).forEach(i -> {
+            try {
+                int headItem = Integer.parseInt(bufferedReader.readLine().trim());
+
+                head.insertNode(headItem);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        int k = Integer.parseInt(bufferedReader.readLine().trim());
+
+        SinglyLinkedListNode result = Result.removeKthNodeFromEnd(head.head, k);
+
+        SinglyLinkedListPrintHelper.printList(result, "\n");
+        System.out.println();
+
+        bufferedReader.close();
+    }
+}
